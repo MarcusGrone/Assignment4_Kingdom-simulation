@@ -16,7 +16,7 @@ public class GemDepositQueue<T> implements GemDeposit
     deposit = new MyArrayList<Gem>();
   }
 
-  @Override public void put(Gem gem)
+  @Override synchronized public void put(Gem gem)
   {
     while (deposit.size() == capacity)
     {
@@ -36,7 +36,7 @@ public class GemDepositQueue<T> implements GemDeposit
       notifyAll();
   }
 
-  @Override public Gem get()
+  @Override synchronized public Gem get()
   {
     while (deposit.isEmpty())
     {
