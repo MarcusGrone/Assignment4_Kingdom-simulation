@@ -2,13 +2,22 @@ package Mining.Gems;
 
 public class GoldNugget implements Gem
 {
-  @Override public String getName()
+  private String name;
+  private int value;
+
+  public GoldNugget()
   {
-      return "GoldNugget";
+    this.name = "GoldNugget";
+    this.value =5000;
   }
 
-  @Override public int getValue()
-  {
-    return 5000;
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public int getValue() {
+    return value;
   }
 }

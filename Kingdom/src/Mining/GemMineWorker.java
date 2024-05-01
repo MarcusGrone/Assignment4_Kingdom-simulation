@@ -1,28 +1,60 @@
 package Mining;
 
+import Catalogue.Catalogue;
 import Mining.Gems.Gem;
+import Mining.MinigStrategies.MiningFast;
+import Mining.MinigStrategies.MiningNormal;
+import Mining.MinigStrategies.MiningSlow;
 import Mining.MinigStrategies.MiningStrategies;
-
-import java.util.concurrent.BlockingQueue;
 
 public class GemMineWorker implements Runnable
 {
-  private final BlockingQueue<Gem> gemDeposit;
-  private final MiningStrategies miningStrategies;
+  MiningStrategies strategy;
+  private GemDeposit gemDeposit;
+  private int id;
+  private String name;
 
-
-  public GemMineWorker(BlockingQueue<Gem> gemDeposit, MiningStrategies miningStrategies) {
+  public GemMineWorker(GemDeposit gemDeposit, int id)
+  {
     this.gemDeposit = gemDeposit;
-    this.miningStrategies = miningStrategies;
+    this.id = id;
+    this.strategy = new MiningNormal();
+    updateNameBasedOnStrategy();
   }
-  @Override
-  public void run() {
-    while (true) {
-      Gem gem = miningStrategies.mineGem();
-      try {
-        gemDeposit.put(gem);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+
+  public void setStrategy(MiningStrategies strategy)
+  {
+    this.strategy = strategy;
+    updateNameBasedOnStrategy();
+  }
+
+  public void updateNameBasedOnStrategy()
+  {
+    if (strategy instanceof MiningNormal)
+    {
+      name = "NormalMiner " + id;
+    }
+    else if (strategy instanceof MiningFast)
+    {
+      name = "FastMiner " + id;
+    }
+    else if (strategy instanceof MiningSlow)
+    {
+      name = "SlowMiner " + id;
+    }
+  }
+
+  @Override public void run()
+  {
+    while (!Thread.currentThread().isInterrupted())
+    {
+      Gem gemMined = strategy.mineGem();
+      Catalogue.addToMiningLogs(
+          name + ": mined " + gemMined.getName() + " worth: "
+              + gemMined.getValue() + " coins");
+      if (gemMined != null)
+      {
+        gemDeposit.put(gemMined);
       }
     }
   }

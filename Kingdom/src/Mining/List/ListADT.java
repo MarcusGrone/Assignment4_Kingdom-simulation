@@ -1,4 +1,4 @@
-package Mining;
+package Mining.List;
 
 public interface ListADT<T>
 {

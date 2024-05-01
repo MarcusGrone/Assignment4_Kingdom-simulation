@@ -7,35 +7,24 @@ import java.util.Random;
 
 public class MiningNormal implements MiningStrategies
 {
-  private final GemMine gemMine;
 
-  public MiningNormal(GemMine gemMine) {
-    this.gemMine = gemMine;
+
+  public MiningNormal()
+  {
+
   }
-
   @Override
   public Gem mineGem() {
-    try {
+    try
+    {
       Thread.sleep(3000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
     }
-    Random random = new Random();
-    int randomIndex = random.nextInt(5);
-    switch (randomIndex) {
-      case 0:
-        return gemMine.getInstance("GoldNugget");
-      case 1:
-        return gemMine.getInstance("SilverOre");
-      case 2:
-        return gemMine.getInstance("Sapphire");
-      case 3:
-        return gemMine.getInstance("Ruby");
-      case 4:
-        return gemMine.getInstance("Diamond");
-      default:
-        return null;
+    catch (InterruptedException e)
+    {
+      Thread.currentThread().interrupt();
     }
+    return GemMine.getGem();
+
   }
 }
 

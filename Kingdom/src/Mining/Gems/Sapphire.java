@@ -2,13 +2,22 @@ package Mining.Gems;
 
 public class Sapphire implements Gem
 {
-  @Override public String getName()
+  private String name;
+  private int value;
+
+  public Sapphire()
   {
-    return "Sapphire";
+    this.name = "Sapphire";
+    this.value = 1000;
   }
 
-  @Override public int getValue()
-  {
-    return 1000;
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public int getValue() {
+    return value;
   }
 }

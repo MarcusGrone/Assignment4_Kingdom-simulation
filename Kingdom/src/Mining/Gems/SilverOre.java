@@ -2,13 +2,22 @@ package Mining.Gems;
 
 public class SilverOre implements Gem
 {
-  @Override public String getName()
+  private String name;
+  private int value;
+
+  public SilverOre()
   {
-    return "Silver";
+    this.name = "Silver";
+    this.value = 500;
   }
 
-  @Override public int getValue()
-  {
-    return 500;
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public int getValue() {
+    return value;
   }
 }

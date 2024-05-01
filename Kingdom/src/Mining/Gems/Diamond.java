@@ -2,13 +2,21 @@ package Mining.Gems;
 
 public class Diamond implements Gem
 {
-  @Override public String getName()
+  private String name;
+  private int value;
+  public Diamond()
   {
-      return "Diamond";
+    this.name = "Diamond";
+    this.value =15000 ;
   }
 
-  @Override public int getValue()
-  {
-    return 15000;
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public int getValue() {
+    return value;
   }
 }

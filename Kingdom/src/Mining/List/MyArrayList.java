@@ -1,4 +1,4 @@
-package Mining;
+package Mining.List;
 
 /**
  * ArrayList is an implementation of interface ListADT (the interface to a list
